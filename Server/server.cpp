@@ -7,8 +7,8 @@ Server::Server(QWidget *parent) :
 {
     ui->setupUi(this);
     ip = getIP();
-    ui->textEdit->append(ip);
-    ui->textEdit->setReadOnly(true);
+    ui->textEdit_ip->append(ip);
+    ui->textEdit_ip->setReadOnly(true);
     tcpServer = new QTcpServer(this);
     connect(tcpServer,SIGNAL(newConnection()),this,SLOT(newConnectSlot()));
 }
@@ -18,18 +18,20 @@ Server::~Server()
 }
 void Server::init()
 {
-    int i = 8080;
+    int i = 8000;
     tcpServer->listen(QHostAddress::Any, i);
 }
+
 void Server::newConnectSlot()
 {
-    QString tmp;
     QTcpSocket *tcp = tcpServer->nextPendingConnection();
     connect(tcp,SIGNAL(readyRead()),this,SLOT(readMessage()));
     userList << tcp;
-
     connect(tcp,SIGNAL(disconnected()),this,SLOT(removeUserFormList()));
 }
+
+
+//等待用户消息；
 void Server::readMessage()
 {
     QByteArray tmp;
@@ -53,6 +55,8 @@ void Server::readMessage()
 
         list();
 
+
+
     }else{
         for(int i = 0; i < userList.count(); i++)
         {
@@ -60,6 +64,7 @@ void Server::readMessage()
         }
     }
 }
+
 QString Server::getIP()  //获取ip地址
 {
     QList<QHostAddress> list = QNetworkInterface::allAddresses();
@@ -73,15 +78,28 @@ QString Server::getIP()  //获取ip地址
     }
     return 0;
 }
+
+void Server::on_pushButton_clicked()  //开启服务器；
+{
+    init();
+}
+
 void Server::removeUserFormList()
 {
+    QString tmp;
+
     QTcpSocket* socket = static_cast<QTcpSocket*>(sender());
 //    QTcpSocket *tcp = tcpServer->nextPendingConnection();
+
+    socket->peerAddress().toString();
 
     if(userList.removeOne(socket)){
         list();
     }
 }
+
+
+
 void Server::list()
 {
     QByteArray msg;
@@ -102,10 +120,4 @@ void Server::list()
         userList.at(j)->write(msg);
     }
     msg.clear();
-}
-
-
-void Server::on_pushButton_clicked()
-{
-    init();
 }

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Server</string>
   </property>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="textEdit_ip">
    <property name="geometry">
     <rect>
      <x>180</x>

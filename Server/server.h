@@ -22,9 +22,7 @@ public:
     QTcpServer *tcpServer;
     void init();
     QString getIP();
-
     void uselist();
-
     void NAME(QTcpSocket* ,QByteArray);
     void list();
 
