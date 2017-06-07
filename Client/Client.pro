@@ -5,6 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
+QT       += network
+QT       += core gui network
+QT       += core gui widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +17,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        client.cpp
+        client.cpp \
+    chat.cpp
 
-HEADERS  += client.h
+HEADERS  += client.h \
+    connection.h \
+    chat.h
 
-FORMS    += client.ui
+FORMS    += client.ui \
+    chat.ui
