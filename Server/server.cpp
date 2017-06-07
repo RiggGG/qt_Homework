@@ -35,7 +35,6 @@ void Server::newConnectSlot()
 void Server::readMessage()
 {
     QByteArray tmp;
-    QString bb;
     QTcpSocket *socket = static_cast<QTcpSocket*>(sender());
     //qDebug() << socket->readAll();
     tmp.append(socket->readAll());
@@ -54,9 +53,6 @@ void Server::readMessage()
         namess = names.split("^");
 
         list();
-
-
-
     }else{
         for(int i = 0; i < userList.count(); i++)
         {
@@ -86,10 +82,8 @@ void Server::on_pushButton_clicked()  //开启服务器；
 
 void Server::removeUserFormList()
 {
-    QString tmp;
 
     QTcpSocket* socket = static_cast<QTcpSocket*>(sender());
-//    QTcpSocket *tcp = tcpServer->nextPendingConnection();
 
     socket->peerAddress().toString();
 

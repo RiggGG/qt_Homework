@@ -36,8 +36,6 @@ private:
     Ui::Server *ui;
     QString ip;
     QList < QTcpSocket *> userList;
-    QList <QByteArray> userName;
-    QList <QString> userIP;
     QStringList ipname,ipss,namess;
     int ii;
     QString ips,names;
